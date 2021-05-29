@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Musify</title>
+    <link href="style.css" rel="stylesheet">
+
+</head>
+<body>
+<h1 id="site-title">Musify</h1>
+
+<div class="container">
+    <div class="music-info">
+        <h3 id="title">Song name</h3>
+        <div class="progress-container">
+            <div class="progress">
+
+            </div>
+        </div>
+    </div>
+    <audio id="audio" src="music/song.mp3"></audio>
+
+    <div class="img-container">
+        <img alt="Song image" src="images/song.jpg" id="music-cover">
+    </div>
+    <div class="navigation">
+        <button id="prev" class="action-btn">
+            <i class="fas fa-backward"></i>
+        </button>
+        <button id="play" class="action-btn action-btn-big">
+            <i class="fas fa-play"></i>
+        </button>
+        <button id="next" class="action-btn">
+            <i class="fas fa-forward"></i>
+        </button>
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+<script src="https://kit.fontawesome.com/35713f5d61.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
