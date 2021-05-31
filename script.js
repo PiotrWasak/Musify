@@ -15,10 +15,7 @@ const coverImage = document.querySelector('#music-cover');
 const playListContainer = document.querySelector('.playlist-container')
 const playList = document.querySelector('#playlist')
 
-// Song array
-const songs = ['Vlad Gluschenko-Chestnuts',
-    'Tobjan-Memories',
-    'Scandinavianz-Waikiki']
+
 
 let songIndex = 0;
 
@@ -118,12 +115,15 @@ progressContainer.addEventListener('click', setProgress);
 playListContainer.addEventListener('click', loadPlaylistSong)
 
 // Show playlist
-function showPlaylist(songs) {
-    songs.forEach(addSongToPlayList);
+function showPlaylist() {
+    for (i=0; i<songsDB().count(); i++){
+        const songName = songsDB({index:i}).first().song;
+        const authorName = songsDB({index:i}).first().author;
+        fileName = `${authorName}-${songName}`;
+        playList.innerHTML += `<p><img alt="Album Cover" style="vertical-align:middle" src="songs/${fileName}.png">${fileName}</p>`
+    }
+ //   playlist.forEach(addSongToPlayList);
 }
 
-function addSongToPlayList(item, index){
-    playList.innerHTML += `<p><img alt="Album Cover" style="vertical-align:middle" src="songs/${item}.png">${item}</p>`
-}
 
-window.onload = showPlaylist(songs);
+window.onload = showPlaylist();
