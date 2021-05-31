@@ -18,7 +18,7 @@ if(isset($_POST['submit']))
                 $tmp = $_FILES['songToUpload']['tmp_name'];
                 if(move_uploaded_file($tmp, $path.$actual_image_name))
                 {
-                    //success upload
+                    echo "success";
                 }
                 else
                     echo "failed";
