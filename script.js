@@ -1,3 +1,8 @@
+let songsDB = TAFFY();
+songsDB.insert({index:0,author:"Vlad Gluschenko",song:"Chestnuts"});
+songsDB.insert({index:1,author:"Tobjan",song:"Memories"});
+songsDB.insert({index:2,author:"Scandinavianz",song:"Waikiki"});
+
 const musicContainer = document.querySelector('.container');
 const playBtn = document.querySelector('#play');
 const prevBtn = document.querySelector('#prev');
@@ -18,13 +23,21 @@ const songs = ['Vlad Gluschenko-Chestnuts',
 let songIndex = 0;
 
 // Load songs info
-loadSong(songs[songIndex])
+loadSong(songIndex)
 
 //Update song details
-function loadSong(song){
-    songTitle.innerText = song;
-    audio.src = `songs/${song}.mp3`;
-    coverImage.src = `songs/${song}.png`;
+function loadSong(songIndex){
+    let fileName;
+    if(typeof songIndex == "number") {
+        const songName = songsDB({index: songIndex}).first().song;
+        const authorName = songsDB({index: songIndex}).first().author;
+        fileName = `${authorName}-${songName}`;
+    } else if (typeof songIndex=="string"){
+        fileName = songIndex;
+    }
+    songTitle.innerText = fileName;
+    audio.src = `songs/${fileName}.mp3`;
+    coverImage.src = `songs/${fileName}.png`;
 }
 
 function playSong() {
@@ -47,21 +60,21 @@ if (songIndex > 0) {
 } else {
     console.log('First song')
     // Go to last song
-    songIndex = songs.length - 1;
+    songIndex = songsDB().count() - 1;
 }
-loadSong(songs[songIndex]);
+loadSong(songIndex);
 playSong();
 }
 
 function nextSong() {
-if (songIndex < songs.length - 1) {
+if (songIndex < songsDB().count() - 1) {
     songIndex++;
 } else{
     console.log('Last song')
     // Go to first song
     songIndex = 0;
 }
-loadSong(songs[songIndex]);
+loadSong(songIndex);
 playSong();
 }
 
@@ -106,12 +119,11 @@ playListContainer.addEventListener('click', loadPlaylistSong)
 
 // Show playlist
 function showPlaylist(songs) {
-    let playlist = songs;
-    playlist.forEach(addSongToPlayList);
+    songs.forEach(addSongToPlayList);
 }
 
 function addSongToPlayList(item, index){
-    playList.innerHTML += `<p><img style="vertical-align:middle" src="songs/${item}.png">${item}</p>`
+    playList.innerHTML += `<p><img alt="Album Cover" style="vertical-align:middle" src="songs/${item}.png">${item}</p>`
 }
 
 window.onload = showPlaylist(songs);
